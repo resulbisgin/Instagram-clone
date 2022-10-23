@@ -17,9 +17,17 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth()
 const db=getFirestore(app)
-onAuthStateChanged(auth, user => {	 
+onAuthStateChanged(auth,async user => {	 
 if(user){
-	userHandle(user)
+const dbUser=	await getDoc(doc(db,"users",user.uid))
+	let data={
+		uidl:user.uid,
+		full_name:user.displayName,
+		email:user.email,
+		emailVerified:user.emailVerified,
+		...dbUser.data()
+	}
+	userHandle(data)
 }else{
 	userHandle(false)
 }
@@ -28,14 +36,20 @@ if(user){
 export const login = async (email, password) => {
 	try {
 		const response = await signInWithEmailAndPassword(auth, email, password)
+		return response
 	} catch (err) {
 		toast.error(err.code)
 	}
 }
 export const register = async ({email, password,full_name,username}) => {
 	try {
+		const user=await getDoc(doc(db,"usersnames",username))
+		if(user.exists()){
+			toast.error(`${username} kullanıcı adı başkası tarafından kullanılıyor.`)
+		}else{
 		const response = await createUserWithEmailAndPassword(auth, email, password)
 		if(response.user){
+		
 
 		await setDoc(doc(db,"usersnames",username),{
 			uid:response.user.uid
@@ -53,6 +67,8 @@ export const register = async ({email, password,full_name,username}) => {
 		})
 		return response.user
 	}
+	}
+	
 
 	} catch (err) {
 		toast.error(err.code)
