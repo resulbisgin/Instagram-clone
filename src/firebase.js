@@ -41,6 +41,15 @@ export const login = async (email, password) => {
 		toast.error(err.code)
 	}
 }
+export const getUserInfo = async uname => {
+	const username = await getDoc(doc(db, "usersnames", uname))
+	if (username.exists()) {
+		return (await getDoc(doc(db, "users", username.data().uid))).data()
+	} else {
+		toast.error("Kullanıcı bulunamadı!")
+		throw new Error("Kullanıcı bulunamadı!")
+	}
+}
 export const register = async ({email, password,full_name,username}) => {
 	try {
 		const user=await getDoc(doc(db,"usersnames",username))
@@ -59,7 +68,12 @@ export const register = async ({email, password,full_name,username}) => {
 			username,
 			followers:[],
 			following:[],
-			notification:[]
+			notification:[],
+			website:'',
+			bio:'',
+			phoneNumber:'',
+			gender:'',
+			posts:0
 		})
 
 		await updateProfile(auth.currentUser,{
