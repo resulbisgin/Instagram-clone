@@ -1,9 +1,17 @@
 export default function Header({user}){
 return(
-    <header className="flex items-center gap-x-6">
+    <header className="flex items-center px-24 py-4 pb-10  gap-x-24">
         <img src="/default_avatar.jpg" alt="" className="w-[150px] h-[150px] rounded-full"/>
         <div>
-            <h1>{user.full_name}</h1>
+            <div className="mb-4">
+            <h1 className="text-[28px] font-light">{user.username}</h1>
+
+            </div>
+            <nav className="flex gap-x-10 items-center">
+            <div><span className="font-semibold">{user.posts}</span> posts</div>
+            <div><span className="font-semibold">{user.followers.length}  </span> followers</div>
+            <div><span className="font-semibold">{user.following.length} </span> following</div>
+            </nav>
         </div>
     </header>
 )

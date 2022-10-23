@@ -1,6 +1,7 @@
+import Icon from "components/Icon"
 import {getUserInfo} from "firebase.js"
 import { useEffect, useState } from "react"
-import { useNavigate, useParams } from "react-router-dom"
+import { NavLink, useNavigate, useParams } from "react-router-dom"
 import Header from "./components/header"
 
 export default function Profil() {
@@ -19,11 +20,16 @@ export default function Profil() {
 				})
 			})
 	}, [])
-	return (
-		<>
+	return user && (
+		(
+			<>
 		<Header user={user}/>
-			Profile page={username}
-            
+		<nav className="border-t">
+		<NavLink to={`/${username}`}>
+		<Icon name="post"/>
+		</NavLink>
+		</nav>            
 		</>
+		)
 	)
 }
