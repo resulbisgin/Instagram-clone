@@ -2,8 +2,10 @@ import {Link, NavLink} from "react-router-dom";
 import Search from "components/Search";
 import {logout} from "firebase.js";
 import Icon from "./Icon";
+import { useSelector } from "react-redux";
 
 export default function Header() {
+	const user=useSelector(state=> state.auth.user)
 	return (
 		<header className="bg-white border-b border-gray-300">
 			<div className="flex items-center justify-between h-[60px] container mx-auto">
@@ -31,9 +33,9 @@ export default function Header() {
 											<NavLink to="/">
 						<Icon size={24} name="hearth"/>
 											</NavLink>
-					<button onClick={logout}>
+					<NavLink to={`/${user.username}`}>
 						<img src="/default_avatar.jpg" className="w-6 h-6 rounded-full"/>
-					</button>
+					</NavLink>
 				</nav>
 
 			</div>

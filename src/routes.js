@@ -4,7 +4,9 @@ import Register from "pages/auth/register";
 import AuthLayout from "pages/auth";
 import MainLayout from "pages/layout";
 import Home from "pages/home";
-import Profil from "pages/profile";
+import ProfileLayout from "pages/profile";
+import ProfilePosts from "pages/profile/posts";
+import ProfileTagged from "pages/profile/tagged";
 
 const routes = [
 	{
@@ -18,7 +20,17 @@ const routes = [
 			},
 			{
 				path:':username',
-				element:<Profil/>
+				element:<ProfileLayout/>,
+				children:[
+					{
+						index:true,
+						element:<ProfilePosts/>
+					},
+					{
+						path:'tagged',
+						element:<ProfileTagged/>
+					}
+				]
 			}
 		]
 	},
