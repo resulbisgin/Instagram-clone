@@ -33,7 +33,9 @@ export default function ProfileLayout() {
 	return user && (
 		(
 			<div>
-			
+				<Helmet>
+					<title>{user.full_name } (@{user.username}) Instagram photos and videos </title>
+				</Helmet>
 			<Header user={user} />
 			<nav className="border-t flex gap-x-16 justify-center items-center">
 				<NavLink to={`/${username}`} end={true} className={({isActive}) => classNames({
