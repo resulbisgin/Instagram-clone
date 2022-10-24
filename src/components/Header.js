@@ -17,11 +17,11 @@ export default function Header() {
 
 				<Search/>
 
-				<nav className="flex items-center gap-x-6">
+				<nav className="flex items-center gap-x-5">
 					<NavLink to="/">
 						<Icon size={24} name="home"/>
 											</NavLink>
-						<NavLink to="/">
+						<NavLink to="/inbox">
 						<Icon size={24} name="direct"/>
 											</NavLink>
 											<NavLink to="/">
